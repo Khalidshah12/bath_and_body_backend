@@ -13,7 +13,7 @@ reviewRouter.get('/:id', async (req, res) => {
             res.send({ msg: "No review for this item" })
         }
     } catch (e) {
-        res.send({ msg: "Something went wrong in Review Get/All", e });
+        res.status(500).send({ msg: "Something went wrong in Review Get/All", e });
     }
 });
 
@@ -24,7 +24,7 @@ reviewRouter.post('/write', async (req, res) => {
         await review.save();
         res.send("review writed successfully");
     } catch (e) {
-        res.send({ msg: "Something went wrong in review post", e });
+        res.status(500).send({ msg: "Something went wrong in review post", e });
     }
 });
 
