@@ -6,7 +6,7 @@ const reviewRouter = express.Router();
 reviewRouter.get('/:id', async (req, res) => {
     const id = req.params.id;
     try {
-        const reviews = await ReviewModal.find({ product_id: id });
+        const reviews = await ReviewModal.find({ product_id: id }).populate(['product_id', 'user_id']);
         if (reviews.length > 0) {
             res.send(reviews);
         } else {
@@ -22,7 +22,7 @@ reviewRouter.post('/write', async (req, res) => {
     try {
         const review = new ReviewModal(payload);
         await review.save();
-        res.send("review writed successfully");
+        res.send({ msg: "review writed successfully" });
     } catch (e) {
         res.status(500).send({ msg: "Something went wrong in review post", e });
     }
